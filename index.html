@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quit looking up here nerd.</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class'
+    };
+  </script>
+  <script>
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  </script>
+</head>
+<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-white transition-colors">
+  <div class="max-w-screen-lg mx-auto px-4 sm:px-6 lg:px-8">
+    <header class="text-center py-10">
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold">This is an example</h1>
+      <p class="text-gray-600 dark:text-gray-300 text-sm sm:text-base md:text-lg mt-2">This is an example</p>
+      <div class="mt-4 flex justify-center gap-4 flex-wrap">
+        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="px-4 py-2 border rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition text-sm sm:text-base">ExA</a>
+        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="px-4 py-2 border rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition text-sm sm:text-base">ExC</a>
+        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="px-4 py-2 border rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition text-sm sm:text-base">ExC</a>
+      </div>
+      <button onclick="toggleTheme()" class="mt-6 text-xs sm:text-sm underline">Theme.Toggle(Debug)</button>
+    </header>
+
+    <main class="grid gap-6 md:grid-cols-2">
+      <section class="p-6 bg-gray-100 dark:bg-gray-800 rounded shadow">
+        <h2 class="text-xl sm:text-2xl font-semibold mb-2">ExAB</h2>
+        <p class="text-sm sm:text-base">ExAC</p>
+      </section>
+
+      <section class="p-6 bg-gray-100 dark:bg-gray-800 rounded shadow">
+        <h2 class="text-xl sm:text-2xl font-semibold mb-2">This is an example</h2>
+        <ul class="list-disc list-inside text-sm sm:text-base">
+          <li>This is an example</li>
+          <li>This is an example</li>
+          <li>This is an example</li>
+          <li>This is an example</li>
+        </ul>
+      </section>
+
+      <section class="md:col-span-2 p-6 bg-gray-100 dark:bg-gray-800 rounded shadow">
+        <h2 class="text-xl sm:text-2xl font-semibold mb-4">This is an example</h2>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div>
+            <h3 class="font-medium text-base sm:text-lg">This is an example</h3>
+            <p class="text-xs sm:text-sm">This is an example</p>
+          </div>
+          <div>
+            <h3 class="font-medium text-base sm:text-lg">This is an example</h3>
+            <p class="text-xs sm:text-sm">This is an example</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="text-center text-xs sm:text-sm text-gray-500 mt-10">
+      This is an example
+    </footer>
+  </div>
+
+  <script>
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.toggle('dark');
+      localStorage.theme = isDark ? 'dark' : 'light';
+    }
+  </script>
+</body>
+</html>
