@@ -5,10 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Testing - About</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/@tailwindcss/typography@0.5.9/dist/typography.min.css"
-  />
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -17,8 +13,7 @@
   <script>
     if (
       localStorage.theme === 'dark' ||
-      (!('theme' in localStorage) &&
-        window.matchMedia('(prefers-color-scheme: dark)').matches)
+      (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
     ) {
       document.documentElement.classList.add('dark');
     } else {
@@ -33,7 +28,7 @@
     class="fixed top-4 right-4 z-50 px-3 py-1 border rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition text-sm"
     aria-label="Toggle dark mode"
   >
-    This is an example
+    Theme Toggle
   </button>
 
   <div class="max-w-screen-md mx-auto px-4 sm:px-6 lg:px-8 min-h-screen flex flex-col">
@@ -50,19 +45,19 @@
 
     <!-- Main Content -->
     <main class="flex-grow">
-      <section class="prose dark:prose-invert max-w-none">
-        <h2>This is an example</h2>
+      <section class="max-w-none space-y-6 text-base leading-relaxed">
+        <h2 class="text-2xl font-semibold">This is an example</h2>
         <p>This is an example. This is an example. This is an example. This is an example.</p>
 
-        <h3>This is an example</h3>
+        <h3 class="text-xl font-semibold mt-6">This is an example</h3>
         <p>This is an example. This is an example. This is an example.</p>
 
-        <blockquote>
+        <blockquote class="border-l-4 border-gray-300 dark:border-gray-600 pl-4 italic text-gray-600 dark:text-gray-400">
           This is an example. This is an example.
         </blockquote>
 
-        <h3>This is an example</h3>
-        <ul>
+        <h3 class="text-xl font-semibold mt-6">This is an example</h3>
+        <ul class="list-disc list-inside space-y-1">
           <li>This is an example</li>
           <li>This is an example</li>
           <li>This is an example</li>
