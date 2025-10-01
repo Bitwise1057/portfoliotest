@@ -114,20 +114,27 @@
   <span class="absolute top-4 right-6 text-white text-3xl font-bold cursor-pointer select-none" onclick="closeImage()">&times;</span>
 
   <!-- Image + caption -->
-  <div class="relative max-w-3xl w-full px-4" onclick="event.stopPropagation()">
-    <!-- Prev button -->
-    <button id="prevBtn" class="absolute left-0 top-1/2 transform -translate-y-1/2 text-white text-4xl font-bold px-3 select-none" onclick="changeImage(-1)">&#10094;</button>
+  <div class="relative max-w-5xl w-full px-4" onclick="event.stopPropagation()">
+    <div class="flex items-center justify-between">
+      <!-- Prev button -->
+      <button id="prevBtn" 
+              class="text-white text-4xl font-bold px-4 py-2 bg-black bg-opacity-30 rounded-l hover:bg-opacity-50 transition select-none"
+              onclick="changeImage(-1)">&#10094;</button>
 
-    <!-- Next button -->
-    <button id="nextBtn" class="absolute right-0 top-1/2 transform -translate-y-1/2 text-white text-4xl font-bold px-3 select-none" onclick="changeImage(1)">&#10095;</button>
+      <!-- Enlarged Image -->
+      <img id="overlay-img" src="" alt="Enlarged view" class="max-h-[80vh] w-auto rounded shadow-lg mx-4">
 
-    <!-- Enlarged Image -->
-    <img id="overlay-img" src="" alt="Enlarged view" class="w-full h-auto rounded shadow-lg mx-auto">
+      <!-- Next button -->
+      <button id="nextBtn" 
+              class="text-white text-4xl font-bold px-4 py-2 bg-black bg-opacity-30 rounded-r hover:bg-opacity-50 transition select-none"
+              onclick="changeImage(1)">&#10095;</button>
+    </div>
 
     <!-- Caption -->
-    <p id="overlay-caption" class="text-center text-gray-200 mt-4 text-lg sm:text-xl md:text-2xl"></p>
+    <p id="overlay-caption" class="text-center text-gray-200 mt-4 text-xl sm:text-2xl md:text-3xl"></p>
   </div>
 </div>
+
 
 
 
