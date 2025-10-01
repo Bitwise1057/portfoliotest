@@ -20,21 +20,23 @@
     }
   </script>
 </head>
-<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-white transition-colors flex flex-col min-h-screen">
-  <!-- Header Bar -->
-  <header class="bg-gray-100 dark:bg-gray-800 shadow">
-    <div class="max-w-screen-lg mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-3">
-      <!-- Navigation -->
-      <nav class="flex gap-4">
-        <a href="index.html" class="px-4 py-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition">Home</a>
-        <a href="gallery.html" class="px-4 py-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition">Gallery</a>
-        <a href="about.html" class="px-4 py-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition">About</a>
-      </nav>
-      <!-- Theme Toggle -->
-      <button onclick="toggleTheme()" class="px-3 py-1 border rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 transition text-sm" aria-label="Toggle dark mode">
-        Theme Toggle
-      </button>
-    </div>
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300 min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="flex justify-between items-center p-4 border-b dark:border-gray-700">
+    <!-- Centered Navigation -->
+    <nav class="absolute left-1/2 transform -translate-x-1/2">
+      <ul class="flex space-x-4">
+        <li><a href="index.html" class="px-4 py-2 border rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition text-sm sm:text-base">Home</a></li>
+        <li><a href="gallery.html" class="px-4 py-2 border rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition text-sm sm:text-base">Gallery</a></li>
+        <li><a href="about.html" class="px-4 py-2 border rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition text-sm sm:text-base">About</a></li>
+      </ul>
+    </nav>
+
+    <!-- Theme Toggle (Top Right) -->
+    <button id="theme-toggle" class="ml-auto px-3 py-1 border rounded text-sm sm:text-base">
+      Toggle Theme
+    </button>
   </header>
 
   <!-- Page Content -->
@@ -112,14 +114,9 @@
   <!-- Footer Bar -->
   <footer class="bg-gray-100 dark:bg-gray-800 shadow mt-10">
     <div class="max-w-screen-lg mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-3 text-sm">
-      <span class="text-gray-500 dark:text-gray-400">© 2025 Example</span>
+      <!-- <span class="text-gray-500 dark:text-gray-400">© 2025 Example</span> -->
       <div class="flex gap-4 items-center">
-        <a href="index.html" class="hover:underline">Home</a>
-        <a href="gallery.html" class="hover:underline">Gallery</a>
-        <a href="about.html" class="hover:underline">About</a>
-        <button onclick="toggleTheme()" class="px-3 py-1 border rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 transition text-sm">
-          Theme Toggle
-        </button>
+        <p class="text-sm">© 2025 Example. All rights reserved.</p>
       </div>
     </div>
   </footer>
