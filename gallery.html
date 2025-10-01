@@ -37,8 +37,18 @@
     </div>
   </header>
 
+  <!-- Page Content -->
+  <div class="flex-grow max-w-screen-lg mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Header Title -->
+    <div class="text-center py-10">
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold">Image Gallery</h1>
+      <p class="text-gray-600 dark:text-gray-300 text-sm sm:text-base md:text-lg mt-2">
+        <!-- DebugText.1 -->
+      </p>
+    </div>
+
     <!-- Main Content -->
-    <main class="flex-grow">
+    <main>
       <section>
         <h2 class="text-xl sm:text-2xl font-semibold mb-6 text-center">Character Art</h2>
 
@@ -82,7 +92,8 @@
             </figcaption>
           </figure>
 
-           <figure class="bg-gray-100 dark:bg-gray-800 rounded shadow overflow-hidden">
+          <!-- Image 4 -->
+          <figure class="bg-gray-100 dark:bg-gray-800 rounded shadow overflow-hidden">
             <img
               src="img/BDR.png"
               alt="This is an example - TEST"
@@ -96,44 +107,47 @@
         </div>
       </section>
     </main>
-
-    <!-- Footer -->
-    <footer class="text-center text-xs sm:text-sm text-gray-500 mt-10 py-6">
-      This is an example
-    </footer>
   </div>
 
-<!-- Lightbox Overlay -->
-<div id="overlay" 
-     class="hidden fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50"
-     onclick="overlayClick(event)">
-  <!-- Close button -->
-  <span class="absolute top-4 right-6 text-white text-3xl font-bold cursor-pointer select-none" onclick="closeImage()">&times;</span>
-
-  <!-- Image + caption -->
-  <div class="relative max-w-5xl w-full px-4" onclick="event.stopPropagation()">
-    <div class="flex items-center justify-between">
-      <!-- Prev button -->
-      <button id="prevBtn" 
-              class="text-white text-4xl font-bold px-4 py-2 bg-black bg-opacity-30 rounded-l hover:bg-opacity-50 transition select-none"
-              onclick="changeImage(-1)">&#10094;</button>
-
-    <!-- Enlarged Image -->
-    <img id="overlay-img" src="" alt="Enlarged view" class="w-full h-auto rounded shadow-lg mx-auto">
-
-      <!-- Next button -->
-      <button id="nextBtn" 
-              class="text-white text-4xl font-bold px-4 py-2 bg-black bg-opacity-30 rounded-r hover:bg-opacity-50 transition select-none"
-              onclick="changeImage(1)">&#10095;</button>
+  <!-- Footer Bar -->
+  <footer class="bg-gray-100 dark:bg-gray-800 shadow mt-10">
+    <div class="max-w-screen-lg mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-3 text-sm">
+      <span class="text-gray-500 dark:text-gray-400">© 2025 Example</span>
+      <div class="flex gap-4 items-center">
+        <a href="index.html" class="hover:underline">Home</a>
+        <a href="gallery.html" class="hover:underline">Gallery</a>
+        <a href="about.html" class="hover:underline">About</a>
+        <button onclick="toggleTheme()" class="px-3 py-1 border rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 transition text-sm">
+          Theme Toggle
+        </button>
+      </div>
     </div>
+  </footer>
 
-    <!-- Caption -->
-    <p id="overlay-caption" class="text-center text-gray-200 mt-4 text-xl sm:text-2xl md:text-3xl"></p>
+  <!-- Lightbox Overlay -->
+  <div id="overlay" 
+       class="hidden fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50"
+       onclick="overlayClick(event)">
+    <!-- Close button -->
+    <span class="absolute top-4 right-6 text-white text-3xl font-bold cursor-pointer select-none" onclick="closeImage()">&times;</span>
+
+    <!-- Image + caption -->
+    <div class="relative max-w-5xl w-full px-4" onclick="event.stopPropagation()">
+      <div class="flex items-center justify-between">
+        <!-- Prev button -->
+        <button id="prevBtn" class="text-white text-4xl font-bold px-4 py-2 bg-black bg-opacity-30 rounded-l hover:bg-opacity-50 transition select-none" onclick="changeImage(-1)">&#10094;</button>
+
+        <!-- Enlarged Image -->
+        <img id="overlay-img" src="" alt="Enlarged view" class="max-h-[80vh] w-auto rounded shadow-lg mx-4">
+
+        <!-- Next button -->
+        <button id="nextBtn" class="text-white text-4xl font-bold px-4 py-2 bg-black bg-opacity-30 rounded-r hover:bg-opacity-50 transition select-none" onclick="changeImage(1)">&#10095;</button>
+      </div>
+
+      <!-- Caption -->
+      <p id="overlay-caption" class="text-center text-gray-200 mt-4 text-xl sm:text-2xl md:text-3xl"></p>
+    </div>
   </div>
-</div>
-
-
-
 
   <script>
     function toggleTheme() {
@@ -169,12 +183,10 @@
     }
 
     function overlayClick(event) {
-  // Close if clicking directly on overlay background
-    if (event.target.id === 'overlay') {
-      closeImage();
-  }
-}
-
+      if (event.target.id === 'overlay') {
+        closeImage();
+      }
+    }
 
     document.addEventListener('keydown', (e) => {
       if (overlay.classList.contains('hidden')) return;
@@ -183,7 +195,6 @@
       if (e.key === 'ArrowLeft') changeImage(-1);
     });
 
-    // Initialize image click listeners
     document.addEventListener('DOMContentLoaded', () => {
       images = Array.from(document.querySelectorAll('#gallery img'));
       images.forEach((img, index) => {
