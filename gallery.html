@@ -45,7 +45,7 @@
       <section>
         <h2 class="text-xl sm:text-2xl font-semibold mb-6 text-center">Character Art</h2>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" aria-label="Gallery of examples">
+        <div id="gallery" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" aria-label="Gallery of examples">
           <!-- Image 1 -->
           <figure class="bg-gray-100 dark:bg-gray-800 rounded shadow overflow-hidden">
             <img
@@ -53,7 +53,6 @@
               alt="This is an example"
               class="w-full h-auto object-cover transition-transform duration-300 hover:scale-105 cursor-pointer"
               loading="lazy"
-              onclick="openImage(this.src, this.alt)"
             />
             <figcaption class="p-4 text-center text-sm sm:text-base">
               This is an example
@@ -67,7 +66,6 @@
               alt="This is an example"
               class="w-full h-auto object-cover transition-transform duration-300 hover:scale-105 cursor-pointer"
               loading="lazy"
-              onclick="openImage(this.src, this.alt)"
             />
             <figcaption class="p-4 text-center text-sm sm:text-base">
               This is an example
@@ -81,7 +79,6 @@
               alt="This is an example"
               class="w-full h-auto object-cover transition-transform duration-300 hover:scale-105 cursor-pointer"
               loading="lazy"
-              onclick="openImage(this.src, this.alt)"
             />
             <figcaption class="p-4 text-center text-sm sm:text-base">
               This is an example
@@ -99,9 +96,18 @@
 
   <!-- Lightbox Overlay -->
   <div id="overlay" class="hidden fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
-    <span class="absolute top-4 right-6 text-white text-3xl font-bold cursor-pointer" onclick="closeImage()">&times;</span>
-    <div class="max-w-3xl w-full px-4">
-      <img id="overlay-img" src="" alt="Enlarged view" class="w-full h-auto rounded shadow-lg">
+    <!-- Close button -->
+    <span class="absolute top-4 right-6 text-white text-3xl font-bold cursor-pointer select-none" onclick="closeImage()">&times;</span>
+
+    <!-- Prev button -->
+    <button id="prevBtn" class="absolute left-4 text-white text-4xl font-bold px-2 select-none" onclick="changeImage(-1)">&#10094;</button>
+
+    <!-- Next button -->
+    <button id="nextBtn" class="absolute right-4 text-white text-4xl font-bold px-2 select-none" onclick="changeImage(1)">&#10095;</button>
+
+    <!-- Image + caption -->
+    <div class="max-w-3xl w-full px-4" onclick="overlayClick(event)">
+      <img id="overlay-img" src="" alt="Enlarged view" class="w-full h-auto rounded shadow-lg mx-auto">
       <p id="overlay-caption" class="text-center text-gray-200 mt-4"></p>
     </div>
   </div>
@@ -112,15 +118,54 @@
       localStorage.theme = isDark ? 'dark' : 'light';
     }
 
-    function openImage(src, alt) {
-      document.getElementById('overlay').classList.remove('hidden');
-      document.getElementById('overlay-img').src = src;
-      document.getElementById('overlay-caption').innerText = alt;
+    const overlay = document.getElementById('overlay');
+    const overlayImg = document.getElementById('overlay-img');
+    const overlayCaption = document.getElementById('overlay-caption');
+    let currentIndex = 0;
+    let images = [];
+
+    function openImage(index) {
+      currentIndex = index;
+      overlay.classList.remove('hidden');
+      updateOverlay();
+    }
+
+    function updateOverlay() {
+      const img = images[currentIndex];
+      overlayImg.src = img.src;
+      overlayCaption.innerText = img.alt;
     }
 
     function closeImage() {
-      document.getElementById('overlay').classList.add('hidden');
+      overlay.classList.add('hidden');
     }
+
+    function changeImage(direction) {
+      currentIndex = (currentIndex + direction + images.length) % images.length;
+      updateOverlay();
+    }
+
+    function overlayClick(event) {
+      // Close if click outside the image container
+      if (event.target === overlay) {
+        closeImage();
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (overlay.classList.contains('hidden')) return;
+      if (e.key === 'Escape') closeImage();
+      if (e.key === 'ArrowRight') changeImage(1);
+      if (e.key === 'ArrowLeft') changeImage(-1);
+    });
+
+    // Initialize image click listeners
+    document.addEventListener('DOMContentLoaded', () => {
+      images = Array.from(document.querySelectorAll('#gallery img'));
+      images.forEach((img, index) => {
+        img.addEventListener('click', () => openImage(index));
+      });
+    });
   </script>
 </body>
 </html>
