@@ -20,25 +20,22 @@
     }
   </script>
 </head>
-<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-white transition-colors relative">
-  <!-- Dark mode toggle button fixed top-right -->
-  <button onclick="toggleTheme()" class="fixed top-4 right-4 z-50 px-3 py-1 border rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition text-sm" aria-label="Toggle dark mode">Theme Toggle</button>
-
-  <div class="max-w-screen-lg mx-auto px-4 sm:px-6 lg:px-8">
-    <!-- Navigation -->
-    <div class="mt-4 flex justify-center gap-4 flex-wrap">
-      <a href="index.html" class="px-4 py-2 border rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition text-sm sm:text-base">Home</a>
-      <a href="gallery.html" class="px-4 py-2 border rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition text-sm sm:text-base">Gallery</a>
-      <a href="about.html" class="px-4 py-2 border rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition text-sm sm:text-base">About</a>
+<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-white transition-colors flex flex-col min-h-screen">
+  <!-- Header Bar -->
+  <header class="bg-gray-100 dark:bg-gray-800 shadow">
+    <div class="max-w-screen-lg mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-3">
+      <!-- Navigation -->
+      <nav class="flex gap-4">
+        <a href="index.html" class="px-4 py-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition">Home</a>
+        <a href="gallery.html" class="px-4 py-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition">Gallery</a>
+        <a href="about.html" class="px-4 py-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition">About</a>
+      </nav>
+      <!-- Theme Toggle -->
+      <button onclick="toggleTheme()" class="px-3 py-1 border rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 transition text-sm" aria-label="Toggle dark mode">
+        Theme Toggle
+      </button>
     </div>
-
-    <!-- Header -->
-    <header class="text-center py-10">
-      <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold">Image Gallery</h1>
-      <p class="text-gray-600 dark:text-gray-300 text-sm sm:text-base md:text-lg mt-2">
-        <!-- DebugText.1 -->
-      </p>
-    </header>
+  </header>
 
     <!-- Main Content -->
     <main class="flex-grow">
