@@ -32,14 +32,21 @@
     Theme Toggle
   </button>
 
-  <div class="max-w-screen-lg mx-auto px-4 sm:px-6 lg:px-8">
-    <!-- Header Navigation -->
-    <header class="mt-4 flex justify-center gap-4 flex-wrap">
-      <a href="index.html" class="px-4 py-2 border rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition text-sm sm:text-base">Home</a>
-      <a href="gallery.html" class="px-4 py-2 border rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition text-sm sm:text-base">Gallery</a>
-      <a href="about.html" class="px-4 py-2 border rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition text-sm sm:text-base">About</a>
-    </header>
 
+    <!-- Header Navigation -->
+ <header class="bg-gray-100 dark:bg-gray-800 shadow relative">
+    <div class="max-w-screen-lg mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <!-- Navigation -->
+      <nav class="flex justify-center gap-4 flex-wrap">
+        <a href="index.html" class="px-4 py-2 border rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition text-sm sm:text-base">Home</a>
+        <a href="gallery.html" class="px-4 py-2 border rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition text-sm sm:text-base">Gallery</a>
+        <a href="about.html" class="px-4 py-2 border rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition text-sm sm:text-base">About</a>
+      </nav>
+      <!-- Theme toggle -->
+      <button onclick="toggleTheme()" class="absolute top-4 right-4 px-3 py-1 border rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-600 transition text-sm" aria-label="Toggle dark mode">Theme</button>
+    </div>
+  </header>
+  <div class="max-w-screen-lg mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Main Content -->
     <main class="grid gap-6 md:grid-cols-2 mt-10">
       <section class="p-6 bg-gray-100 dark:bg-gray-800 rounded shadow">
