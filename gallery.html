@@ -6,9 +6,7 @@
   <title>Testing - Gallery</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    tailwind.config = {
-      darkMode: 'class',
-    };
+    tailwind.config = { darkMode: 'class' };
   </script>
   <script>
     if (
@@ -27,34 +25,35 @@
   <button onclick="toggleTheme()" class="fixed top-4 right-4 z-50 px-3 py-1 border rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition text-sm" aria-label="Toggle dark mode">Theme Toggle</button>
 
   <div class="max-w-screen-lg mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="mt-4 flex justify-center gap-4 flex-wrap">
-        <a href="index.html" class="px-4 py-2 border rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition text-sm sm:text-base">Home</a>
-                  <a href="gallery.html" class="px-4 py-2 border rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition text-sm sm:text-base">Gallery</a>
-                        <a href="about.html" class="px-4 py-2 border rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition text-sm sm:text-base" >About</a>
-      </div>
+    <!-- Navigation -->
+    <div class="mt-4 flex justify-center gap-4 flex-wrap">
+      <a href="index.html" class="px-4 py-2 border rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition text-sm sm:text-base">Home</a>
+      <a href="gallery.html" class="px-4 py-2 border rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition text-sm sm:text-base">Gallery</a>
+      <a href="about.html" class="px-4 py-2 border rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition text-sm sm:text-base">About</a>
+    </div>
+
+    <!-- Header -->
     <header class="text-center py-10">
       <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold">Image Gallery</h1>
       <p class="text-gray-600 dark:text-gray-300 text-sm sm:text-base md:text-lg mt-2">
-       <!-- DebugText.1 -->
+        <!-- DebugText.1 -->
       </p>
-
     </header>
 
+    <!-- Main Content -->
     <main class="flex-grow">
       <section>
         <h2 class="text-xl sm:text-2xl font-semibold mb-6 text-center">Character Art</h2>
 
-        <div
-          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
-          aria-label="Gallery of examples"
-        >
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" aria-label="Gallery of examples">
           <!-- Image 1 -->
           <figure class="bg-gray-100 dark:bg-gray-800 rounded shadow overflow-hidden">
             <img
               src="img/Hissu.png"
               alt="This is an example"
-              class="w-full h-auto object-cover transition-transform duration-300 hover:scale-105"
+              class="w-full h-auto object-cover transition-transform duration-300 hover:scale-105 cursor-pointer"
               loading="lazy"
+              onclick="openImage(this.src, this.alt)"
             />
             <figcaption class="p-4 text-center text-sm sm:text-base">
               This is an example
@@ -66,8 +65,9 @@
             <img
               src="img/Hissu.png"
               alt="This is an example"
-              class="w-full h-auto object-cover transition-transform duration-300 hover:scale-105"
+              class="w-full h-auto object-cover transition-transform duration-300 hover:scale-105 cursor-pointer"
               loading="lazy"
+              onclick="openImage(this.src, this.alt)"
             />
             <figcaption class="p-4 text-center text-sm sm:text-base">
               This is an example
@@ -79,28 +79,47 @@
             <img
               src="img/Hissu.png"
               alt="This is an example"
-              class="w-full h-auto object-cover transition-transform duration-300 hover:scale-105"
+              class="w-full h-auto object-cover transition-transform duration-300 hover:scale-105 cursor-pointer"
               loading="lazy"
+              onclick="openImage(this.src, this.alt)"
             />
             <figcaption class="p-4 text-center text-sm sm:text-base">
               This is an example
             </figcaption>
           </figure>
-
-          <!-- Add more images as needed -->
         </div>
       </section>
     </main>
 
+    <!-- Footer -->
     <footer class="text-center text-xs sm:text-sm text-gray-500 mt-10 py-6">
       This is an example
     </footer>
+  </div>
+
+  <!-- Lightbox Overlay -->
+  <div id="overlay" class="hidden fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
+    <span class="absolute top-4 right-6 text-white text-3xl font-bold cursor-pointer" onclick="closeImage()">&times;</span>
+    <div class="max-w-3xl w-full px-4">
+      <img id="overlay-img" src="" alt="Enlarged view" class="w-full h-auto rounded shadow-lg">
+      <p id="overlay-caption" class="text-center text-gray-200 mt-4"></p>
+    </div>
   </div>
 
   <script>
     function toggleTheme() {
       const isDark = document.documentElement.classList.toggle('dark');
       localStorage.theme = isDark ? 'dark' : 'light';
+    }
+
+    function openImage(src, alt) {
+      document.getElementById('overlay').classList.remove('hidden');
+      document.getElementById('overlay-img').src = src;
+      document.getElementById('overlay-caption').innerText = alt;
+    }
+
+    function closeImage() {
+      document.getElementById('overlay').classList.add('hidden');
     }
   </script>
 </body>
