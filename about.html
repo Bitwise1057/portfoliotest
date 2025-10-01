@@ -13,7 +13,8 @@
   <script>
     if (
       localStorage.theme === 'dark' ||
-      (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+      (!('theme' in localStorage) &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches)
     ) {
       document.documentElement.classList.add('dark');
     } else {
@@ -31,7 +32,8 @@
     Theme Toggle
   </button>
 
-  <header class="bg-gray-100 dark:bg-gray-800 shadow relative">
+  <!-- Header with Navigation -->
+ <header class="bg-gray-100 dark:bg-gray-800 shadow relative">
     <div class="max-w-screen-lg mx-auto px-4 sm:px-6 lg:px-8 py-4">
       <!-- Navigation -->
       <nav class="flex justify-center gap-4 flex-wrap">
@@ -39,43 +41,39 @@
         <a href="gallery.html" class="px-4 py-2 border rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition text-sm sm:text-base">Gallery</a>
         <a href="about.html" class="px-4 py-2 border rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition text-sm sm:text-base">About</a>
       </nav>
-      <h1 class="text-4xl font-bold">This is an example</h1>
-      <p class="text-gray-600 dark:text-gray-300">This is an example</p>
       <!-- Theme toggle -->
-      <button onclick="toggleTheme()" class="absolute top-4 right-4 px-3 py-1 border rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-600 transition text-sm" aria-label="Toggle dark mode">Theme</button>
+    <!--  <button onclick="toggleTheme()" class="absolute top-4 right-4 px-3 py-1 border rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-600 transition text-sm" aria-label="Toggle dark mode">Theme</button> -->
     </div>
   </header>
-    </header>
 
-    <!-- Main Content -->
-    <main class="flex-grow">
-      <section class="max-w-none space-y-6 text-base leading-relaxed">
-        <h2 class="text-2xl font-semibold">This is an example</h2>
-        <p>This is an example. This is an example. This is an example. This is an example.</p>
+  <!-- Main Content -->
+  <main class="flex-grow max-w-screen-lg mx-auto px-4 sm:px-6 lg:px-8 mt-10">
+    <section class="max-w-none space-y-6 text-base leading-relaxed">
+      <h2 class="text-2xl font-semibold">This is an example</h2>
+      <p>This is an example. This is an example. This is an example. This is an example.</p>
 
-        <h3 class="text-xl font-semibold mt-6">This is an example</h3>
-        <p>This is an example. This is an example. This is an example.</p>
+      <h3 class="text-xl font-semibold mt-6">This is an example</h3>
+      <p>This is an example. This is an example. This is an example.</p>
 
-        <blockquote class="border-l-4 border-gray-300 dark:border-gray-600 pl-4 italic text-gray-600 dark:text-gray-400">
-          This is an example. This is an example.
-        </blockquote>
+      <blockquote class="border-l-4 border-gray-300 dark:border-gray-600 pl-4 italic text-gray-600 dark:text-gray-400">
+        This is an example. This is an example.
+      </blockquote>
 
-        <h3 class="text-xl font-semibold mt-6">This is an example</h3>
-        <ul class="list-disc list-inside space-y-1">
-          <li>This is an example</li>
-          <li>This is an example</li>
-          <li>This is an example</li>
-        </ul>
+      <h3 class="text-xl font-semibold mt-6">This is an example</h3>
+      <ul class="list-disc list-inside space-y-1">
+        <li>This is an example</li>
+        <li>This is an example</li>
+        <li>This is an example</li>
+      </ul>
 
-        <p>This is an example. This is an example.</p>
-      </section>
-    </main>
+      <p>This is an example. This is an example.</p>
+    </section>
+  </main>
 
-    <!-- Footer -->
-    <footer class="text-center text-sm text-gray-500 mt-10 py-6">
-      This is an example
-    </footer>
-  </div>
+  <!-- Footer -->
+  <footer class="text-center text-sm text-gray-500 mt-10 py-6">
+    This is an example
+  </footer>
 
   <script>
     function toggleTheme() {
