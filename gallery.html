@@ -106,23 +106,26 @@
     </footer>
   </div>
 
-  <!-- Lightbox Overlay -->
-  <div id="overlay" class="hidden fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50" onclick="overlayClick(event)">
-    <!-- Close button -->
-    <span class="absolute top-4 right-6 text-white text-3xl font-bold cursor-pointer select-none" onclick="closeImage()">&times;</span>
+<!-- Lightbox Overlay -->
+<div id="overlay" 
+     class="hidden fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50"
+     onclick="overlayClick(event)">
+  <!-- Close button -->
+  <span class="absolute top-4 right-6 text-white text-3xl font-bold cursor-pointer select-none" onclick="closeImage()">&times;</span>
 
-    <!-- Prev button -->
-    <button id="prevBtn" class="absolute left-4 text-white text-4xl font-bold px-2 select-none" onclick="changeImage(-1)">&#10094;</button>
+  <!-- Prev button -->
+  <button id="prevBtn" class="absolute left-4 text-white text-4xl font-bold px-2 select-none" onclick="changeImage(-1)">&#10094;</button>
 
-    <!-- Next button -->
-    <button id="nextBtn" class="absolute right-4 text-white text-4xl font-bold px-2 select-none" onclick="changeImage(1)">&#10095;</button>
+  <!-- Next button -->
+  <button id="nextBtn" class="absolute right-4 text-white text-4xl font-bold px-2 select-none" onclick="changeImage(1)">&#10095;</button>
 
-    <!-- Image + caption -->
-    <div class="max-w-3xl w-full px-4" onclick="event.stopPropagation()">
-      <img id="overlay-img" src="" alt="Enlarged view" class="w-full h-auto rounded shadow-lg mx-auto">
-      <p id="overlay-caption" class="text-center text-gray-200 mt-4"></p>
-    </div>
+  <!-- Image + caption -->
+  <div class="max-w-3xl w-full px-4" onclick="event.stopPropagation()">
+    <img id="overlay-img" src="" alt="Enlarged view" class="w-full h-auto rounded shadow-lg mx-auto">
+    <p id="overlay-caption" class="text-center text-gray-200 mt-4"></p>
   </div>
+</div>
+
 
   <script>
     function toggleTheme() {
@@ -158,11 +161,12 @@
     }
 
     function overlayClick(event) {
-      // Close if click outside the image container
-      if (event.target.id === overlay) {
-        closeImage();
-      }
-    }
+  // Close if clicking directly on overlay background
+    if (event.target.id === 'overlay') {
+      closeImage();
+  }
+}
+
 
     document.addEventListener('keydown', (e) => {
       if (overlay.classList.contains('hidden')) return;
