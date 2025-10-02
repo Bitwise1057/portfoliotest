@@ -22,9 +22,6 @@
   </script>
 </head>
 <body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-white transition-colors relative">
-  <!-- Dark mode toggle button fixed top-right -->
-  <button onclick="toggleTheme()" class="fixed top-4 right-4 z-50 px-3 py-1 border rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition text-sm" aria-label="Toggle dark mode">Theme Toggle</button>
-
   <!-- Header with nav + theme toggle -->
   <header class="bg-gray-100 dark:bg-gray-800 shadow relative">
     <div class="max-w-screen-lg mx-auto px-4 sm:px-6 lg:px-8 py-4">
@@ -45,8 +42,10 @@
       <section>
         <h1 class="text-xl sm:text-2xl font-semibold mb-6 text-center">Character Art</h1>
 
-        <div id="gallery" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" aria-label="Gallery of examples"></div>
-
+        <!-- Gallery Container -->
+        <div id="gallery" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" aria-label="Gallery of examples">
+          <!-- Populated by JSON -->
+        </div>
       </section>
     </main>
 
@@ -56,34 +55,34 @@
     </footer>
   </div>
 
-<!-- Lightbox Overlay -->
-<div id="overlay" 
-     class="hidden fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50"
-     onclick="overlayClick(event)">
-  <!-- Close button -->
-  <span class="absolute top-4 right-6 text-white text-3xl font-bold cursor-pointer select-none" onclick="closeImage()">&times;</span>
+  <!-- Lightbox Overlay -->
+  <div id="overlay" 
+       class="hidden fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50"
+       onclick="overlayClick(event)">
+    <!-- Close button -->
+    <span class="absolute top-4 right-6 text-white text-3xl font-bold cursor-pointer select-none" onclick="closeImage()">&times;</span>
 
-  <!-- Image + caption -->
-  <div class="relative max-w-5xl w-full px-4" onclick="event.stopPropagation()">
-    <div class="flex items-center justify-between">
-      <!-- Prev button -->
-      <button id="prevBtn" 
-              class="text-white text-4xl font-bold px-4 py-2 bg-black bg-opacity-30 rounded-l hover:bg-opacity-50 transition select-none"
-              onclick="changeImage(-1)">&#10094;</button>
+    <!-- Image + caption -->
+    <div class="relative max-w-5xl w-full px-4" onclick="event.stopPropagation()">
+      <div class="flex items-center justify-between">
+        <!-- Prev button -->
+        <button id="prevBtn" 
+                class="text-white text-4xl font-bold px-4 py-2 bg-black bg-opacity-30 rounded-l hover:bg-opacity-50 transition select-none"
+                onclick="changeImage(-1)">&#10094;</button>
 
-      <!-- Enlarged Image -->
-      <img id="overlay-img" src="" alt="Enlarged view" class="w-full h-auto rounded shadow-lg mx-auto">
+        <!-- Enlarged Image -->
+        <img id="overlay-img" src="" alt="Enlarged view" class="w-full h-auto rounded shadow-lg mx-auto">
 
-      <!-- Next button -->
-      <button id="nextBtn" 
-              class="text-white text-4xl font-bold px-4 py-2 bg-black bg-opacity-30 rounded-r hover:bg-opacity-50 transition select-none"
-              onclick="changeImage(1)">&#10095;</button>
+        <!-- Next button -->
+        <button id="nextBtn" 
+                class="text-white text-4xl font-bold px-4 py-2 bg-black bg-opacity-30 rounded-r hover:bg-opacity-50 transition select-none"
+                onclick="changeImage(1)">&#10095;</button>
+      </div>
+
+      <!-- Caption -->
+      <p id="overlay-caption" class="text-center text-gray-200 mt-4 text-xl sm:text-2xl md:text-3xl"></p>
     </div>
-
-    <!-- Caption -->
-    <p id="overlay-caption" class="text-center text-gray-200 mt-4 text-xl sm:text-2xl md:text-3xl"></p>
   </div>
-</div>
 
   <script>
     function toggleTheme() {
@@ -95,7 +94,39 @@
     const overlayImg = document.getElementById('overlay-img');
     const overlayCaption = document.getElementById('overlay-caption');
     let currentIndex = 0;
-    let images = [];
+    let galleryData = [];
+
+    async function loadGallery() {
+      try {
+        const res = await fetch('gallery.json');
+        galleryData = await res.json();
+
+        const gallery = document.getElementById('gallery');
+        gallery.innerHTML = '';
+
+        galleryData.forEach((item, index) => {
+          const figure = document.createElement('figure');
+          figure.className = "bg-gray-100 dark:bg-gray-800 rounded shadow overflow-hidden";
+
+          const img = document.createElement('img');
+          img.src = item.src;
+          img.alt = item.alt || item.caption;
+          img.className = "w-full h-auto object-cover transition-transform duration-300 hover:scale-105 cursor-pointer";
+          img.loading = "lazy";
+          img.addEventListener('click', () => openImage(index));
+
+          const caption = document.createElement('figcaption');
+          caption.className = "p-4 text-center text-sm sm:text-base";
+          caption.textContent = item.caption;
+
+          figure.appendChild(img);
+          figure.appendChild(caption);
+          gallery.appendChild(figure);
+        });
+      } catch (e) {
+        console.error("Error loading gallery:", e);
+      }
+    }
 
     function openImage(index) {
       currentIndex = index;
@@ -104,9 +135,9 @@
     }
 
     function updateOverlay() {
-      const img = images[currentIndex];
-      overlayImg.src = img.src;
-      overlayCaption.innerText = img.alt;
+      const data = galleryData[currentIndex];
+      overlayImg.src = data.src;
+      overlayCaption.innerText = data.caption; // caption from JSON
     }
 
     function closeImage() {
@@ -114,7 +145,7 @@
     }
 
     function changeImage(direction) {
-      currentIndex = (currentIndex + direction + images.length) % images.length;
+      currentIndex = (currentIndex + direction + galleryData.length) % galleryData.length;
       updateOverlay();
     }
 
@@ -131,75 +162,7 @@
       if (e.key === 'ArrowLeft') changeImage(-1);
     });
 
-    document.addEventListener('DOMContentLoaded', () => {
-      images = Array.from(document.querySelectorAll('#gallery img'));
-      images.forEach((img, index) => {
-        img.addEventListener('click', () => openImage(index));
-      });
-    });
+    document.addEventListener('DOMContentLoaded', loadGallery);
   </script>
-<script>
-let galleryData = [];
-let images = [];
-let currentIndex = 0;
-
-async function loadGallery() {
-  try {
-    const res = await fetch('gallery.json');
-    galleryData = await res.json();
-
-    const gallery = document.getElementById('gallery');
-    gallery.innerHTML = '';
-
-    galleryData.forEach((item, index) => {
-      const figure = document.createElement('figure');
-      figure.className = "bg-gray-100 dark:bg-gray-800 rounded shadow overflow-hidden";
-
-      const img = document.createElement('img');
-      img.src = item.src;
-      img.alt = item.alt || item.caption;
-      img.className = "w-full h-auto object-cover transition-transform duration-300 hover:scale-105 cursor-pointer";
-      img.loading = "lazy";
-      img.addEventListener('click', () => openImage(index));
-
-      const caption = document.createElement('figcaption');
-      caption.className = "p-4 text-center text-sm sm:text-base";
-      caption.textContent = item.caption;
-
-      figure.appendChild(img);
-      figure.appendChild(caption);
-      gallery.appendChild(figure);
-    });
-
-    // Store the DOM image elements for overlay navigation
-    images = Array.from(document.querySelectorAll('#gallery img'));
-  } catch (e) {
-    console.error("Error loading gallery:", e);
-  }
-}
-
-function openImage(index) {
-  currentIndex = index;
-  overlay.classList.remove('hidden');
-  updateOverlay();
-}
-
-function updateOverlay() {
-  const data = galleryData[currentIndex];
-  overlayImg.src = data.src;
-  overlayCaption.innerText = data.caption; // ✅ caption from JSON
-}
-
-function closeImage() {
-  overlay.classList.add('hidden');
-}
-
-function changeImage(direction) {
-  currentIndex = (currentIndex + direction + galleryData.length) % galleryData.length;
-  updateOverlay();
-}
-
-document.addEventListener('DOMContentLoaded', loadGallery);
-</script>
 </body>
 </html>
