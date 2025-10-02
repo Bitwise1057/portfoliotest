@@ -45,59 +45,8 @@
       <section>
         <h1 class="text-xl sm:text-2xl font-semibold mb-6 text-center">Character Art</h1>
 
-        <div id="gallery" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" aria-label="Gallery of examples">
-          <!-- Image 1 -->
-          <figure class="bg-gray-100 dark:bg-gray-800 rounded shadow overflow-hidden">
-            <img
-              src="img/Hissu.png"
-              alt="This is an example"
-              class="w-full h-auto object-cover transition-transform duration-300 hover:scale-105 cursor-pointer"
-              loading="lazy"
-            />
-            <figcaption class="p-4 text-center text-sm sm:text-base">
-              This is an example
-            </figcaption>
-          </figure>
+        <div id="gallery" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" aria-label="Gallery of examples"></div>
 
-          <!-- Image 2 -->
-          <figure class="bg-gray-100 dark:bg-gray-800 rounded shadow overflow-hidden">
-            <img
-              src="img/Hissu.png"
-              alt="This is an example"
-              class="w-full h-auto object-cover transition-transform duration-300 hover:scale-105 cursor-pointer"
-              loading="lazy"
-            />
-            <figcaption class="p-4 text-center text-sm sm:text-base">
-              This is an example
-            </figcaption>
-          </figure>
-
-          <!-- Image 3 -->
-          <figure class="bg-gray-100 dark:bg-gray-800 rounded shadow overflow-hidden">
-            <img
-              src="img/Hissu.png"
-              alt="This is an example"
-              class="w-full h-auto object-cover transition-transform duration-300 hover:scale-105 cursor-pointer"
-              loading="lazy"
-            />
-            <figcaption class="p-4 text-center text-sm sm:text-base">
-              This is an example
-            </figcaption>
-          </figure>
-
-          <!-- Image 4 -->
-          <figure class="bg-gray-100 dark:bg-gray-800 rounded shadow overflow-hidden">
-            <img
-              src="img/BDR.png"
-              alt="This is an example - TEST"
-              class="w-full h-auto object-cover transition-transform duration-300 hover:scale-105 cursor-pointer"
-              loading="lazy"
-            />
-            <figcaption class="p-4 text-center text-sm sm:text-base">
-              This is an example
-            </figcaption>
-          </figure>
-        </div>
       </section>
     </main>
 
@@ -189,5 +138,68 @@
       });
     });
   </script>
+<script>
+let galleryData = [];
+let images = [];
+let currentIndex = 0;
+
+async function loadGallery() {
+  try {
+    const res = await fetch('gallery.json');
+    galleryData = await res.json();
+
+    const gallery = document.getElementById('gallery');
+    gallery.innerHTML = '';
+
+    galleryData.forEach((item, index) => {
+      const figure = document.createElement('figure');
+      figure.className = "bg-gray-100 dark:bg-gray-800 rounded shadow overflow-hidden";
+
+      const img = document.createElement('img');
+      img.src = item.src;
+      img.alt = item.alt || item.caption;
+      img.className = "w-full h-auto object-cover transition-transform duration-300 hover:scale-105 cursor-pointer";
+      img.loading = "lazy";
+      img.addEventListener('click', () => openImage(index));
+
+      const caption = document.createElement('figcaption');
+      caption.className = "p-4 text-center text-sm sm:text-base";
+      caption.textContent = item.caption;
+
+      figure.appendChild(img);
+      figure.appendChild(caption);
+      gallery.appendChild(figure);
+    });
+
+    // Store the DOM image elements for overlay navigation
+    images = Array.from(document.querySelectorAll('#gallery img'));
+  } catch (e) {
+    console.error("Error loading gallery:", e);
+  }
+}
+
+function openImage(index) {
+  currentIndex = index;
+  overlay.classList.remove('hidden');
+  updateOverlay();
+}
+
+function updateOverlay() {
+  const data = galleryData[currentIndex];
+  overlayImg.src = data.src;
+  overlayCaption.innerText = data.caption; // ✅ caption from JSON
+}
+
+function closeImage() {
+  overlay.classList.add('hidden');
+}
+
+function changeImage(direction) {
+  currentIndex = (currentIndex + direction + galleryData.length) % galleryData.length;
+  updateOverlay();
+}
+
+document.addEventListener('DOMContentLoaded', loadGallery);
+</script>
 </body>
 </html>
