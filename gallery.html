@@ -106,22 +106,22 @@
 
         galleryData.forEach((item, index) => {
           const figure = document.createElement('figure');
-          figure.className = "bg-gray-100 dark:bg-gray-800 rounded shadow overflow-hidden";
+            figure.className = "bg-gray-100 dark:bg-gray-800 rounded shadow overflow-hidden flex flex-col";
 
-          const img = document.createElement('img');
+        const img = document.createElement('img');
           img.src = item.src;
-          img.alt = item.alt || item.caption;
-          img.className = "w-full h-auto object-cover transition-transform duration-300 hover:scale-105 cursor-pointer";
-          img.loading = "lazy";
-          img.addEventListener('click', () => openImage(index));
+            img.alt = item.alt || item.caption;
+              img.className = "w-full h-64 object-cover transition-transform duration-300 hover:scale-105 cursor-pointer";
+                 img.loading = "lazy";
+                    img.addEventListener('click', () => openImage(index));
 
-          const caption = document.createElement('figcaption');
-          caption.className = "p-4 text-center text-sm sm:text-base";
-          caption.textContent = item.caption;
+        const caption = document.createElement('figcaption');
+          caption.className = "p-2 text-center text-sm sm:text-base bg-gray-50 dark:bg-gray-700";
+            caption.textContent = item.caption;
 
           figure.appendChild(img);
-          figure.appendChild(caption);
-          gallery.appendChild(figure);
+            figure.appendChild(caption);
+              gallery.appendChild(figure);
         });
       } catch (e) {
         console.error("Error loading gallery:", e);
