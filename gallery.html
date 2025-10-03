@@ -126,9 +126,10 @@
       });
     } catch (e) {
       gallery.innerHTML = `
-    <div class="flex items-center justify-center py-20">
-      <div class="p-6 text-center text-red-500 bg-red-100 dark:bg-red-900 rounded shadow">
-        Failed to load gallery: ${e.message}
+    <div class="col-span-full flex items-center justify-center py-20">
+      <div class="p-6 text-center text-red-600 bg-red-100 dark:bg-red-900 rounded shadow">
+        <strong class="block mb-2">Failed to load gallery</strong>
+        <span class="block text-sm">${e.message}</span>
       </div>
     </div>
       `;
