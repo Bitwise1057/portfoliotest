@@ -126,9 +126,11 @@
       });
     } catch (e) {
       gallery.innerHTML = `
-    <div class="fixed inset-0 flex items-center justify-center">
+    <div class="flex items-center justify-center py-20">
       <div class="p-6 text-center text-red-500 bg-red-100 dark:bg-red-900 rounded shadow">
         Failed to load gallery: ${e.message}
+      </div>
+    </div>
       `;
     }
   }
