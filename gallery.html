@@ -148,9 +148,10 @@ try {
 // Overlay-safe handling
 function updateOverlay() {
   const data = galleryData[currentIndex];
-  if (!data || !data.src) {
+  const galleryImg = gallery.children[currentIndex]?.querySelector('img');
+  if (!data || !data.src || (galleryImg && galleryImg.naturalWidth === 0)) {
     overlayImg.src = 'img/stein.png';
-    overlayCaption.innerText = "Image not available";
+    overlayCaption.innerText = 'Image not available';
     return;
   }
   overlayImg.src = data.src;
@@ -161,6 +162,7 @@ function updateOverlay() {
 
     function openImage(index) {
       currentIndex = index;
+      updateOverlay();
       overlay.classList.remove('hidden');
       updateOverlay();
     }
