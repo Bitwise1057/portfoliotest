@@ -117,18 +117,18 @@ try {
     img.className = "w-full h-64 object-cover transition-transform duration-300 hover:scale-105 cursor-pointer";
     img.loading = "lazy";
 
+    const caption = document.createElement('figcaption');
+    caption.className = "p-2 text-center text-sm sm:text-base bg-gray-50 dark:bg-gray-700";
+    caption.textContent = item.caption;
+
     // Image-level error handling
     img.onerror = () => {
-      img.src = 'img/placeholder.png'; // fallback image
+      img.src = 'img/stein.png'; // fallback image
       img.alt = 'Image not available';
       caption.textContent = 'Image failed to load';
     };
 
     img.addEventListener('click', () => openImage(index));
-
-    const caption = document.createElement('figcaption');
-    caption.className = "p-2 text-center text-sm sm:text-base bg-gray-50 dark:bg-gray-700";
-    caption.textContent = item.caption;
 
     figure.appendChild(img);
     figure.appendChild(caption);
