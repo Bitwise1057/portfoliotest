@@ -96,37 +96,43 @@
     let currentIndex = 0;
     let galleryData = [];
 
-    async function loadGallery() {
-      try {
-        const res = await fetch('gallery.json');
-        galleryData = await res.json();
+  async function loadGallery() {
+    const gallery = document.getElementById('gallery');
 
-        const gallery = document.getElementById('gallery');
-        gallery.innerHTML = '';
+    try {
+      const res = await fetch('gallery.json');
+      if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
 
-        galleryData.forEach((item, index) => {
-          const figure = document.createElement('figure');
-            figure.className = "bg-gray-100 dark:bg-gray-800 rounded shadow overflow-hidden flex flex-col";
+      const galleryData = await res.json();
+      gallery.innerHTML = '';
+
+      galleryData.forEach((item, index) => {
+        const figure = document.createElement('figure');
+        figure.className = "bg-gray-100 dark:bg-gray-800 rounded shadow overflow-hidden flex flex-col";
 
         const img = document.createElement('img');
-          img.src = item.src;
-            img.alt = item.alt || item.caption;
-              img.className = "w-full h-64 object-cover transition-transform duration-300 hover:scale-105 cursor-pointer";
-                 img.loading = "lazy";
-                    img.addEventListener('click', () => openImage(index));
+        img.src = item.src;
+        img.alt = item.alt || item.caption;
+        img.className = "w-full h-64 object-cover transition-transform duration-300 hover:scale-105 cursor-pointer";
+        img.loading = "lazy";
+        img.addEventListener('click', () => openImage(index));
 
         const caption = document.createElement('figcaption');
-          caption.className = "p-2 text-center text-sm sm:text-base bg-gray-50 dark:bg-gray-700";
-            caption.textContent = item.caption;
+        caption.className = "p-2 text-center text-sm sm:text-base bg-gray-50 dark:bg-gray-700";
+        caption.textContent = item.caption;
 
-          figure.appendChild(img);
-            figure.appendChild(caption);
-              gallery.appendChild(figure);
-        });
-      } catch (e) {
-        console.error("Error loading gallery:", e);
-      }
+        figure.appendChild(img);
+        figure.appendChild(caption);
+        gallery.appendChild(figure);
+      });
+    } catch (e) {
+      gallery.innerHTML = `
+        <div class="p-4 text-center text-red-500 bg-red-100 dark:bg-red-900 rounded">
+          Failed to load gallery: ${e.message}
+        </div>
+      `;
     }
+  }
 
     function openImage(index) {
       currentIndex = index;
